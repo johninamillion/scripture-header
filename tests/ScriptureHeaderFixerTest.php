@@ -185,6 +185,22 @@ class ScriptureHeaderFixerTest extends TestCase
 
     /** @test */
     #[Test]
+    public function does_not_add_duplicate_header_when_run_twice(): void
+    {
+        $fixer = new ScriptureHeaderFixer();
+        $input = "<?php\n\n\$foo = 123;\n";
+        $tokens = Tokens::fromCode($input);
+
+        $fixer->fix(new SplFileInfo('test.php'), $tokens);
+        $fixer->fix(new SplFileInfo('test.php'), $tokens);
+
+        $code = $tokens->generateCode();
+
+        $this->assertSame(1, substr_count($code, '/**'));
+    }
+
+    /** @test */
+    #[Test]
     public function does_nothing_when_no_php_tag_present(): void
     {
         $fixer = new ScriptureHeaderFixer();
