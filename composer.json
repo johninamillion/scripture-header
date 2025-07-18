@@ -1,0 +1,19 @@
+{
+    "name": "johninamillion/scripture-header",
+    "description": "Custom PHP CS-Fixer that injects dynamic copyright headers with random Bible verses.",
+    "keywords": [ "bible", "php-cs-fixer", "laravel", "pint" ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "johninamillion",
+            "email": "john@millionvisions.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "johninamillion\\ScriptureHeader\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}
