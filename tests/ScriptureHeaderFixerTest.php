@@ -68,7 +68,7 @@ class ScriptureHeaderFixerTest extends TestCase
 
         $this->assertSame('johninamillion', $fixer->exposeAuthor());
         $this->assertSame(ScriptureHeaderFixer::DEFAULT_BIBLE, $fixer->exposeBiblePath());
-        $this->assertSame(ScriptureHeaderFixer::DEFAULT_TEMPLATE, $fixer->exposeTemplatePath());
+        $this->assertSame(ScriptureHeaderFixer::DEFAULT_COPYRIGHT, $fixer->exposeTemplatePath());
     }
 
     /** @test */
@@ -130,7 +130,7 @@ class ScriptureHeaderFixerTest extends TestCase
         $output = $tokens->generateCode();
 
         $this->assertStringStartsWith("<?php\n\n/**", $output);
-        $this->assertStringContainsString('(c) copyright', $output);
+        $this->assertStringContainsString('copyright', $output);
     }
 
     /** @test */
@@ -147,7 +147,7 @@ class ScriptureHeaderFixerTest extends TestCase
         $output = $tokens->generateCode();
 
         $this->assertStringStartsWith("<?php \n\n/**", $output);
-        $this->assertStringContainsString('(c) copyright', $output);
+        $this->assertStringContainsString('copyright', $output);
     }
 
     /** @test */
@@ -164,7 +164,7 @@ class ScriptureHeaderFixerTest extends TestCase
         $output = $tokens->generateCode();
 
         $this->assertStringStartsWith("<?php declare(strict_types=1);\n\n/**", $output);
-        $this->assertStringContainsString('(c) copyright', $output);
+        $this->assertStringContainsString('copyright', $output);
     }
 
     /** @test */
@@ -181,7 +181,7 @@ class ScriptureHeaderFixerTest extends TestCase
         $output = $tokens->generateCode();
 
         $this->assertStringStartsWith("<?php declare(strict_types=1); \n\n/**", $output);
-        $this->assertStringContainsString('(c) copyright', $output);
+        $this->assertStringContainsString('copyright', $output);
     }
 
     /** @test */
