@@ -240,7 +240,7 @@ class ScriptureHeaderFixer extends AbstractFixer implements ConfigurableFixerInt
 
         // prevent duplicate header
         $prevIndex = $tokens->getPrevNonWhitespace($index);
-        if (null !== $prevIndex && $tokens[$prevIndex]->isGivenKind(T_DOC_COMMENT)) {
+        if ($tokens[$index]->isGivenKind(T_DOC_COMMENT) || ($prevIndex && $tokens[$prevIndex]->isGivenKind(T_DOC_COMMENT))) {
             return;
         }
 
