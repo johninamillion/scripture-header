@@ -37,7 +37,6 @@ class ScriptureHeaderFixerTest extends TestCase
     #[Test]
     public function defaults_are_taken_when_no_configuration_given(): void
     {
-        // Wir brauchen eine Subklasse, um protected props auszulesen
         $fixer = new class extends ScriptureHeaderFixer {
             public function getComposerAuthor(): string
             {
@@ -62,7 +61,7 @@ class ScriptureHeaderFixerTest extends TestCase
         };
 
         $resolver = $fixer->getConfigurationDefinition();
-        $resolved = $resolver->resolve([]);      // keine Optionen übergeben
+        $resolved = $resolver->resolve([]);
         $fixer->configure($resolved);
 
         $this->assertSame('johninamillion', $fixer->exposeAuthor());
