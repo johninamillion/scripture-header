@@ -21,8 +21,8 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 class ScriptureHeaderFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
-    const DEFAULT_BIBLE = __DIR__ . '/../data/bible-kjv.json';
-    const DEFAULT_TEMPLATE = __DIR__ . '/../copyright.php';
+    public const DEFAULT_BIBLE = __DIR__ . '/../data/bible-kjv.json';
+    public const DEFAULT_COPYRIGHT = __DIR__ . '/../copyright.php';
 
     /**
      * Author of the copyright header.
@@ -68,7 +68,7 @@ class ScriptureHeaderFixer extends AbstractFixer implements ConfigurableFixerInt
     {
         $this->author = $configuration['author'] ?? $this->getComposerAuthor();
         $this->biblePath = $configuration['bible'] ?? self::DEFAULT_BIBLE;
-        $this->copyrightPath = $configuration['template'] ?? self::DEFAULT_TEMPLATE;
+        $this->copyrightPath = $configuration['template'] ?? self::DEFAULT_COPYRIGHT;
     }
 
     /**
@@ -92,7 +92,7 @@ class ScriptureHeaderFixer extends AbstractFixer implements ConfigurableFixerInt
         $templateBuilder = new FixerOptionBuilder('template', 'Path to a PHP file returning the copyright for the header');
         $templateBuilder
             ->setAllowedTypes(['string'])
-            ->setDefault(self::DEFAULT_TEMPLATE);
+            ->setDefault(self::DEFAULT_COPYRIGHT);
 
         return new FixerConfigurationResolver([
             $authorBuilder->getOption(),
@@ -146,7 +146,7 @@ class ScriptureHeaderFixer extends AbstractFixer implements ConfigurableFixerInt
     public function getName(): string
     {
 
-        return 'scripture_header';
+        return 'MillionVisions/scripture_header';
     }
 
     /**
