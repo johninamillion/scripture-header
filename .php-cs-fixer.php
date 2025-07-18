@@ -12,9 +12,7 @@ $finder = Finder::create()
 return (new Config())
     ->setRules([
         '@PSR12' => true,
-        'MillionVisions/scripture_header' => [
-            'author' => 'MillionVisions',
-        ],
+        'MillionVisions/scripture_header' => true,
     ])
     ->setFinder($finder)
     ->registerCustomFixers([
