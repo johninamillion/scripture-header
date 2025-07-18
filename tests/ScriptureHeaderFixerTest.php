@@ -2,6 +2,7 @@
 
 namespace johninamillion\ScriptureHeader\Tests;
 
+use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 use johninamillion\ScriptureHeader\ScriptureHeaderFixer;
@@ -16,6 +17,105 @@ use PHPUnit\Framework\Attributes\Test;
  */
 class ScriptureHeaderFixerTest extends TestCase
 {
+    /** @test */
+    #[Test]
+    public function configuration_definition_contains_author_bible_and_template_options(): void
+    {
+        $fixer = new ScriptureHeaderFixer();
+        $resolver = $fixer->getConfigurationDefinition();
+
+        $options = array_map(
+            fn($opt) => $opt->getName(),
+            iterator_to_array($resolver->getOptions())
+        );
+
+        $this->assertContains('author', $options);
+        $this->assertContains('bible', $options);
+        $this->assertContains('template', $options);
+    }
+
+    /** @test */
+    #[Test]
+    public function defaults_are_taken_when_no_configuration_given(): void
+    {
+        // Wir brauchen eine Subklasse, um protected props auszulesen
+        $fixer = new class extends ScriptureHeaderFixer {
+            public function getComposerAuthor(): ?string
+            {
+
+                return 'johninamillion';
+            }
+
+            public function exposeAuthor(): string
+            {
+                return $this->author;
+            }
+
+            public function exposeBiblePath(): string
+            {
+                return $this->biblePath;
+            }
+
+            public function exposeTemplatePath(): string
+            {
+                return $this->copyrightPath;
+            }
+        };
+
+        $resolver = $fixer->getConfigurationDefinition();
+        $resolved = $resolver->resolve([]);      // keine Optionen übergeben
+        $fixer->configure($resolved);
+
+        $this->assertSame('johninamillion', $fixer->exposeAuthor());
+        $this->assertSame(ScriptureHeaderFixer::DEFAULT_BIBLE, $fixer->exposeBiblePath());
+        $this->assertSame(ScriptureHeaderFixer::DEFAULT_TEMPLATE, $fixer->exposeTemplatePath());
+    }
+
+    /** @test */
+    #[Test]
+    public function custom_configuration_overrides_defaults(): void
+    {
+        $fixer = new class extends ScriptureHeaderFixer {
+            public function getComposerAuthor(): string
+            {
+
+                return 'should-not-use-this';
+            }
+
+            public function exposeAuthor(): string
+            {
+
+                return $this->author;
+            }
+
+            public function exposeBiblePath(): string
+            {
+
+                return $this->biblePath;
+            }
+
+            public function exposeTemplatePath(): string
+            {
+
+                return $this->copyrightPath;
+            }
+        };
+
+        $custom = [
+            'author' => 'johninamillion',
+            'bible' => '/foo/custom-bible.json',
+            'template' => '/foo/custom-template.php',
+        ];
+
+        $resolver = $fixer->getConfigurationDefinition();
+        $resolved = $resolver->resolve($custom);
+        $fixer->configure($resolved);
+
+        $this->assertSame('johninamillion', $fixer->exposeAuthor());
+        $this->assertSame('/foo/custom-bible.json', $fixer->exposeBiblePath());
+        $this->assertSame('/foo/custom-template.php', $fixer->exposeTemplatePath());
+    }
+
     /** @test */
     #[Test]
     public function adds_header_when_php_tag_present(): void
