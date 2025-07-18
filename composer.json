@@ -35,13 +35,13 @@
             "customFixers": ["src/ScriptureHeaderFixer"]
         },
         "php-cs-fixer": {
-            "config": ".php-cs-fixer.php",
+            "config": ".php-cs-fixer.php.dist",
             "customFixers": ["src/ScriptureHeaderFixer"]
         }
     },
     "scripts": {
         "analyse": "./vendor/bin/phpstan analyse",
-        "csfix": "./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php",
+        "csfix": "./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php.dist",
         "pint": "./vendor/bin/pint --config=.pint.json",
         "test": "./vendor/bin/phpunit --testdox"
     },
