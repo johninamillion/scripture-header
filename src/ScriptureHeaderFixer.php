@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * ©️ copyright 2025 - johninamillion
+ * 🙏🏻 In the beginning God created the heaven and the earth. - Genesis 1:1, KJV
+ */
+
 namespace johninamillion\ScriptureHeader;
 
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;
@@ -255,7 +260,7 @@ class ScriptureHeaderFixer extends AbstractFixer implements ConfigurableFixerInt
         }
         $tokens->insertAt(
             $eols > 0 ? $index + 1 : $index,
-            new Token([T_DOC_COMMENT, $copyright . PHP_EOL])
+            new Token([T_DOC_COMMENT, $copyright])
         );
     }
 
