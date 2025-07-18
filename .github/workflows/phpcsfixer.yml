@@ -1,0 +1,23 @@
+name: phpcsfixer
+
+on: [ push ]
+
+jobs:
+  phpcsfixer:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.PAT }}
+
+      - name: Run php-cs-fixer
+        uses: docker://oskarstark/php-cs-fixer-ga
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 🎨 apply code styles [skip phpcsfixer]

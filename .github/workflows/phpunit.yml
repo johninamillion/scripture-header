@@ -1,0 +1,30 @@
+name: phpunit
+
+on: [ push, pull_request ]
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [ '8.4', '8.3', '8.2' ]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: json
+          coverage: none
+
+      - name: Install Dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Run Tests
+        run: composer run test
+
+      - name: Run PHP-CS-Fixer (dry-run/diff)
+        run: |
+          ./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php --dry-run --diff
