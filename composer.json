@@ -14,6 +14,34 @@
             "johninamillion\\ScriptureHeader\\": "src/"
         }
     },
-    "minimum-stability": "dev",
-    "require": {}
+    "autoload-dev": {
+        "psr-4": {
+            "johninamillion\\ScriptureHeader\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^8.0",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.80",
+        "laravel/pint": "^1.20",
+        "phpunit/phpunit": "^10.0"
+    },
+    "extra": {
+        "pint": {
+            "preset": "psr12",
+            "customFixers": ["src/ScriptureHeaderFixer"]
+        },
+        "php-cs-fixer": {
+            "config": ".php-cs-fixer.php",
+            "customFixers": ["src/ScriptureHeaderFixer"]
+        }
+    },
+    "scripts": {
+        "csfix": "./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php",
+        "pint": "./vendor/bin/pint --config=.pint.json",
+        "test": "./vendor/bin/phpunit --testdox"
+    },
+    "minimum-stability": "stable"
 }
