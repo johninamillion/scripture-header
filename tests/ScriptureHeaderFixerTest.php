@@ -2,7 +2,6 @@
 
 namespace johninamillion\ScriptureHeader\Tests;
 
-use PhpCsFixer\FixerConfiguration\FixerConfigurationResolverInterface;
 use PHPUnit\Framework\TestCase;
 use SplFileInfo;
 use johninamillion\ScriptureHeader\ScriptureHeaderFixer;
