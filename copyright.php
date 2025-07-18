@@ -7,7 +7,7 @@
 return
 <<<COPYRIGHT
 /**
-* (c) copyright {$year} - {$author}
-* {$verse}
-*/
+ * ©️ copyright {$year} - {$author}
+ * 🙏🏻 {$verse}
+ */
 COPYRIGHT;
