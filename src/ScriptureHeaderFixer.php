@@ -119,7 +119,7 @@ class ScriptureHeaderFixer extends AbstractFixer implements ConfigurableFixerInt
 
         $pkg = json_decode($json, true);
 
-        return $pkg['authors'][0]['name'] ?? (explode('/', $pkg['name'])[0] ?? '');
+        return explode("/", $pkg['name'])[0] ?? '';
     }
 
     /**
