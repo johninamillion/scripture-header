@@ -110,9 +110,9 @@ class ScriptureHeaderFixer extends AbstractFixer implements ConfigurableFixerInt
      * Get the author from the composer.json file.
      *
      * @access protected
-     * @return string|null
+     * @return string
      */
-    public function getComposerAuthor(): ?string
+    public function getComposerAuthor(): string
     {
         if (
             !file_exists(($path = getcwd() . '/composer.json'))
@@ -124,7 +124,7 @@ class ScriptureHeaderFixer extends AbstractFixer implements ConfigurableFixerInt
 
         $pkg = json_decode($json, true);
 
-        return explode("/", $pkg['name'])[0] ?? '';
+        return explode("/", $pkg['name'])[0];
     }
 
     /**

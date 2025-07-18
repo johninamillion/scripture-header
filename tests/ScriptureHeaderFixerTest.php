@@ -39,7 +39,7 @@ class ScriptureHeaderFixerTest extends TestCase
     {
         // Wir brauchen eine Subklasse, um protected props auszulesen
         $fixer = new class extends ScriptureHeaderFixer {
-            public function getComposerAuthor(): ?string
+            public function getComposerAuthor(): string
             {
 
                 return 'johninamillion';
