@@ -20,6 +20,11 @@ jobs:
           fetch-depth: 0
           persist-credentials: true
 
+      - name: Force HTTPS remote for pushes
+        run: |
+          git remote set-url origin \
+            https://x-access-token:${{ secrets.bot_token }}@github.com/${{ github.repository }}.git
+
       - name: Run PHP CS Fixer
         uses: docker://oskarstark/php-cs-fixer-ga
         with:
