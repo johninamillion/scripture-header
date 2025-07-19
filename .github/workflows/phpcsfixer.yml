@@ -5,6 +5,7 @@ on:
     paths:
       - '**.php'
       - '.php-cs-fixer.php.dist'
+      - '.github/workflows/phpcsfixer.yml'
 
 permissions:
   contents: write
