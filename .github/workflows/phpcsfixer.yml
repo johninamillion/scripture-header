@@ -2,22 +2,23 @@ name: phpcsfixer
 
 on:
   push:
-    branches: ['master']
     paths:
       - '**.php'
       - '.php-cs-fixer.php.dist'
 
+permissions:
+  contents: write
+
 jobs:
   phpcsfixer:
     runs-on: ubuntu-latest
-    permissions:
-        contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}
-          token: ${{ secrets.bot_token }}
+          token: ${{ github.bot_token }}
+          fetch-depth: 0
+          persist-credentials: true
 
       - name: Run PHP CS Fixer
         uses: docker://oskarstark/php-cs-fixer-ga
@@ -28,3 +29,5 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 🎨 apply code styles [skip phpcsfixer]
+          disable_globbing: true
+          file_pattern: '*.php'
