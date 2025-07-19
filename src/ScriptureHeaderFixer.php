@@ -26,7 +26,7 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 class ScriptureHeaderFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
-    public const DEFAULT_BIBLE = __DIR__ . '/../data/bible-kjv.json';
+    public const DEFAULT_BIBLE = __DIR__ . '/../data/KJV.json';
     public const DEFAULT_COPYRIGHT = __DIR__ . '/../copyright.php';
 
     /**
@@ -290,11 +290,13 @@ class ScriptureHeaderFixer extends AbstractFixer implements ConfigurableFixerInt
         $json = file_get_contents($path);
         /** @var array $bible */
         $bible = json_decode($json, true);
+        /** @var string $version */
+        $version = pathinfo($path, PATHINFO_FILENAME);
 
         foreach ($bible['books'] as $book) {
             foreach ($book['chapters'] as $chapter) {
                 foreach ($chapter['verses'] as $verse) {
-                    $this->verses[] = "{$verse['text']} - {$verse['name']}, KJV";
+                    $this->verses[] = "{$verse['text']} - {$verse['name']}, {$version}";
                 }
             }
         }
