@@ -18,8 +18,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ github.bot_token }}
-          fetch-depth: 0
           persist-credentials: true
+          ssh-strict: false
 
       - name: Force HTTPS remote for pushes
         run: |
