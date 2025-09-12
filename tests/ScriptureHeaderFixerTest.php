@@ -2,11 +2,13 @@
 
 namespace johninamillion\ScriptureHeader\Tests;
 
-use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionException;
 use SplFileInfo;
 use johninamillion\ScriptureHeader\ScriptureHeaderFixer;
 use PhpCsFixer\Tokenizer\Tokens;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Scripture Header Fixer Test
@@ -16,6 +18,24 @@ use PHPUnit\Framework\Attributes\Test;
  */
 class ScriptureHeaderFixerTest extends TestCase
 {
+    protected function getCopyright(): string
+    {
+        $fixer = new ScriptureHeaderFixer();
+        $reflection = new ReflectionClass($fixer);
+
+        try {
+            $invoke = $reflection
+                ->getMethod('getCopyright')
+                ->invoke($fixer);
+
+            return is_string($invoke) ? $invoke : '';
+        }
+        catch (ReflectionException $e) {
+            echo $e->getMessage();
+            exit();
+        }
+    }
+
     /** @test */
     #[Test]
     public function configuration_definition_contains_author_bible_and_template_options(): void
@@ -24,7 +44,7 @@ class ScriptureHeaderFixerTest extends TestCase
         $resolver = $fixer->getConfigurationDefinition();
 
         $options = array_map(
-            fn($opt) => $opt->getName(),
+            static fn($opt) => $opt->getName(),
             iterator_to_array($resolver->getOptions())
         );
 
@@ -61,6 +81,7 @@ class ScriptureHeaderFixerTest extends TestCase
         };
 
         $resolver = $fixer->getConfigurationDefinition();
+        /** @var array<string,string> $resolved */
         $resolved = $resolver->resolve([]);
         $fixer->configure($resolved);
 
@@ -106,6 +127,7 @@ class ScriptureHeaderFixerTest extends TestCase
         ];
 
         $resolver = $fixer->getConfigurationDefinition();
+        /** @var array<string,string> $resolved */
         $resolved = $resolver->resolve($custom);
         $fixer->configure($resolved);
 
@@ -122,7 +144,7 @@ class ScriptureHeaderFixerTest extends TestCase
         $input = "<?php\n\n\$foo = 123;\n";
         $tokens = Tokens::fromCode($input);
 
-        // use fix method to apply the fixer, cause applyFix is protected
+        // use the fix method to apply the fixer, cause applyFix is protected
         $fixer->fix(new SplFileInfo('test.php'), $tokens);
 
         $output = $tokens->generateCode();
@@ -139,12 +161,12 @@ class ScriptureHeaderFixerTest extends TestCase
         $input = "<?php \n\n\$foo = 123;\n";
         $tokens = Tokens::fromCode($input);
 
-        // use fix method to apply the fixer, cause applyFix is protected
+        // use the fix method to apply the fixer, cause applyFix is protected
         $fixer->fix(new SplFileInfo('test.php'), $tokens);
 
         $output = $tokens->generateCode();
 
-        $this->assertStringStartsWith("<?php \n\n/**", $output);
+        $this->assertStringStartsWith("<?php\n\n/**", $output);
         $this->assertStringContainsString('copyright', $output);
     }
 
@@ -156,7 +178,7 @@ class ScriptureHeaderFixerTest extends TestCase
         $input = "<?php declare(strict_types=1);\n\n\$foo = 123;\n";
         $tokens = Tokens::fromCode($input);
 
-        // use fix method to apply the fixer, cause applyFix is protected
+        // use the fix method to apply the fixer, cause applyFix is protected
         $fixer->fix(new SplFileInfo('test.php'), $tokens);
 
         $output = $tokens->generateCode();
@@ -173,12 +195,12 @@ class ScriptureHeaderFixerTest extends TestCase
         $input = "<?php declare(strict_types=1); \n\n\$foo = 123;\n";
         $tokens = Tokens::fromCode($input);
 
-        // use fix method to apply the fixer, cause applyFix is protected
+        // use the fix method to apply the fixer, cause applyFix is protected
         $fixer->fix(new SplFileInfo('test.php'), $tokens);
 
         $output = $tokens->generateCode();
 
-        $this->assertStringStartsWith("<?php declare(strict_types=1); \n\n/**", $output);
+        $this->assertStringStartsWith("<?php declare(strict_types=1);\n\n/**", $output);
         $this->assertStringContainsString('copyright', $output);
     }
 
@@ -209,5 +231,24 @@ class ScriptureHeaderFixerTest extends TestCase
         $fixer->fix(new SplFileInfo('dummy.php'), $tokens);
 
         $this->assertSame($input, $tokens->generateCode());
+    }
+
+    #[Test]
+    public function overwrites_outdated_headers(): void
+    {
+        $fixer = new ScriptureHeaderFixer();
+        $copyright = $this->getCopyright();
+        $outdatedCopyright = str_replace(date('Y'), '2020', $copyright);
+        $input = "<?php\n{$outdatedCopyright}";
+        $tokens = Tokens::fromCode($input);
+
+        // use the fix method to apply the fixer, cause applyFix is protected
+        $fixer->fix(new SplFileInfo('test.php'), $tokens);
+
+        $output = $tokens->generateCode();
+
+        $this->assertStringStartsWith("<?php\n\n/**", $output);
+        $this->assertStringContainsString('copyright', $output);
+        $this->assertStringNotContainsString($outdatedCopyright, $output);
     }
 }
