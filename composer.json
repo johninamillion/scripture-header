@@ -25,15 +25,10 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.80",
-        "laravel/pint": "^1.20",
         "phpunit/phpunit": "^10.0",
         "phpstan/phpstan": "^2.0"
     },
     "extra": {
-        "pint": {
-            "preset": "psr12",
-            "customFixers": ["src/ScriptureHeaderFixer"]
-        },
         "php-cs-fixer": {
             "config": ".php-cs-fixer.php.dist",
             "customFixers": ["src/ScriptureHeaderFixer"]
