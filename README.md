@@ -68,16 +68,18 @@ You can easily customize the rules for the Scripture Header Fixer by passing opt
             'author'    => 'Your Name',
             'bible'     => 'data/BIBLE.json',
             'template'  => 'your-copyright.php'
+            'pattern'   => '/your-pattern/'
         ]
     ])
     ... 
 ```
 
-| Option       | Description                                                                                                                                                                                                                                                 | Default Value                    |
-|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------|
-| **author**   | Custom author name.                                                                                                                                                                                                                                         | Vendor name from `composer.json` |
-| **bible**    | Custom path to any bible translation in json format from [scrollmapper/bible_databases](https://github.com/scrollmapper/bible_databases). <br> **This package only provides the `KJV.json`.** <br> **The filename is used as suffix for the bible verses.** | `data/KJV.json`                  |
-| **template** | Custom template for your copyright header.                                                                                                                                                                                                                  | `./copyright.php`                |
+| Option       | Description                                                                                                                                                                                                                                                 | Default Value                              |
+|--------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------|
+| **author**   | Custom author name.                                                                                                                                                                                                                                         | Vendor name from `composer.json`           |
+| **bible**    | Custom path to any bible translation in json format from [scrollmapper/bible_databases](https://github.com/scrollmapper/bible_databases). <br> **This package only provides the `KJV.json`.** <br> **The filename is used as suffix for the bible verses.** | `data/KJV.json`                            |
+| **template** | Custom template for your copyright header.                                                                                                                                                                                                                  | `./copyright.php`                          |
+| **pattern**  | Custom pattern for copyright header replacements.                                                                                                                                                                                                           | `/^\/\*\*[\s\S]+?copyright (\d{4}) - .+$/` |
 
 
 ## Development
