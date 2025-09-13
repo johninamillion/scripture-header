@@ -6,7 +6,8 @@
     "authors": [
         {
             "name": "johninamillion",
-            "email": "git@millionvisions.de"
+            "email": "git@millionvisions.de",
+            "role": "Developer"
         }
     ],
     "autoload": {
@@ -35,8 +36,8 @@
         }
     },
     "scripts": {
-        "analyse": "./vendor/bin/phpstan analyse",
-        "csfix": "./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php.dist",
+        "cs:analyse": "./vendor/bin/phpstan analyse",
+        "cs:fix": "./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php.dist",
         "test": "./vendor/bin/phpunit --testdox"
     },
     "minimum-stability": "stable"
