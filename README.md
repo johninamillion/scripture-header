@@ -22,7 +22,7 @@ It supports various Bible translations from [scrollmapper/bible_databases](https
 You can install the package via Composer:
 
 ```bash
-composer require johninamillion/scripture-header
+composer require --dev johninamillion/scripture-header
 ```
 
 ### Basic Usage
