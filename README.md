@@ -2,7 +2,6 @@
 
 [![PHPUnit](https://github.com/johninamillion/scripture-header/actions/workflows/phpunit.yml/badge.svg)](https://github.com/johninamillion/scripture-header/actions/workflows/phpunit.yml)
 [![PHPStan](https://github.com/johninamillion/scripture-header/actions/workflows/phpstan.yml/badge.svg)](https://github.com/johninamillion/scripture-header/actions/workflows/phpstan.yml)
-[![PHP-CS-Fixer](https://github.com/johninamillion/scripture-header/actions/workflows/phpcsfixer.yml/badge.svg)](https://github.com/johninamillion/scripture-header/actions/workflows/phpcsfixer.yml)
 
 Scripture Header is a PHP package that allows you to add copyright headers with bible verses to your code files as comments via [php-cs-fixer/php-cs-fixer](https://github.com/php-cs-fixer/php-cs-fixer). 
 It supports various Bible translations from [scrollmapper/bible_databases](https://github.com/scrollmapper/bible_databases) and can be easily integrated into your development workflow.
