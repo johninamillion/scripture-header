@@ -89,7 +89,7 @@ You can easily customize the rules for the Scripture Header Fixer by passing opt
 To analyze your code for potential issues, you can run [phpstan](https://github.com/phpstan/phpstan):
 
 ```bash
-composer cs:analyse
+composer code:analyse
 ```
 
 ### CS-Fixer
@@ -97,7 +97,7 @@ composer cs:analyse
 To ensure your code adheres to the coding standards, you can run the [php-cs-fixer](https://github.com/php-cs-fixer/php-cs-fixer).
 
 ```bash
-composer cs:fix
+composer code:fix
 ```
 
 ### Testing
@@ -106,6 +106,12 @@ To run the tests, make sure you have installed [phpunit](https://github.com/seba
 
 ```bash
 composer test
+```
+
+Check the Test Coverage:
+
+```bash
+composer test:coverage
 ```
 
 ---
