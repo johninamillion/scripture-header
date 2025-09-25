@@ -96,7 +96,7 @@ composer code:analyse
 To ensure your code adheres to the coding standards, you can run the [php-cs-fixer](https://github.com/php-cs-fixer/php-cs-fixer).
 
 ```bash
-composer code:fix
+composer code:format
 ```
 
 ### Testing
