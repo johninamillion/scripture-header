@@ -3,6 +3,16 @@
 # Windows
 Thumbs.db
 
+# IDEs
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed
+
+# Log Files
+*.log
+
 # Temporary files
 /tmp
 
