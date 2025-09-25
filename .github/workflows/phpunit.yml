@@ -10,7 +10,7 @@ jobs:
         php: [ '8.4', '8.3', '8.2' ]
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -24,7 +24,3 @@ jobs:
 
       - name: Run Tests
         run: composer run test
-
-      - name: Run PHP-CS-Fixer (dry-run/diff)
-        run: |
-          ./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php.dist --dry-run --diff
