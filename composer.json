@@ -31,14 +31,15 @@
     },
     "extra": {
         "php-cs-fixer": {
-            "config": ".php-cs-fixer.php.dist",
+            "config": ".php-cs-fixer.php",
             "customFixers": ["src/ScriptureHeaderFixer"]
         }
     },
     "scripts": {
-        "cs:analyse": "./vendor/bin/phpstan analyse",
-        "cs:fix": "./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php.dist",
-        "test": "./vendor/bin/phpunit --testdox"
+        "code:analyse": "./vendor/bin/phpstan analyse",
+        "code:format": "./vendor/bin/php-cs-fixer fix",
+        "test": "./vendor/bin/phpunit --testdox",
+        "test:coverage": "./vendor/bin/phpunit --coverage-php src/"
     },
     "minimum-stability": "stable"
 }
