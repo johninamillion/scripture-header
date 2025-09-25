@@ -15,11 +15,12 @@ $finder = Finder::create()
     ->exclude(['tests', 'vendor']);
 
 return (new Config())
+    ->setCacheFile(__DIR__ . '/tmp/php-cs-fixer/cache/.php-cs-fixer.cache')
+    ->setFinder($finder)
     ->setRules([
         '@PSR12' => true,
         'MillionVisions/scripture_header' => true,
     ])
-    ->setFinder($finder)
     ->registerCustomFixers([
         'MillionVisions/scripture_header' => new ScriptureHeaderFixer()
     ]);
